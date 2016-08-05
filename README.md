@@ -26,25 +26,21 @@ usage: suze.py [-h] [-v] -u example.com [-g] [-b] [-d] [-a] [-o result.txt]
 
 optional arguments:
 
-  -h, --help            show this help message and exit
+  -h, --help | show this help message and exit
 
-  -v, --version         show program's version number and exit
+  -v, --version | show program's version number and exit
 
   -u example.com, --url example.com
 
-                        URL input
+  -g, --google | Scan subdomain using Google
 
-  -g, --google          Scan subdomain using Google
+  -b, --bing | Scan subdomain using Bing
 
-  -b, --bing            Scan subdomain using Bing
+  -d, --baidu |Scan subdomain using Baidu
 
-  -d, --baidu           Scan subdomain using Baidu
+  -a, --all | Scan subdomain using all available Search Engines
 
-  -a, --all             Scan subdomain using all available Search Engines
-
-  -o result.txt, --output result.txt
-
-                        Save output to file
+  -o result.txt, --output result.txt | Save output to file
 
 ## Example
 Searching subdomain via Google Search :

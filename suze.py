@@ -25,7 +25,7 @@ parser.add_argument('-g','--google',help="Scan subdomain using Google",action="s
 parser.add_argument('-b','--bing',help="Scan subdomain using Bing",action="store_true")
 parser.add_argument('-d','--baidu',help="Scan subdomain using Baidu",action="store_true")
 parser.add_argument('-a','--all',help="Scan subdomain using all available Search Engines ",action="store_true")
-parser.add_argument('-o','--output',metavar="result.txt",help="Save output to file")
+parser.add_argument('-o','--output',metavar="result.txt",help="Save output to file",required=True)
 args = parser.parse_args()
 target = args.url
 domainList = []

@@ -18,6 +18,9 @@
 import urllib2,random,re,argparse
 from urlparse import urlparse
 from bs4 import BeautifulSoup
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 parser = argparse.ArgumentParser(description="Suze :: Subdomain Grabber based Google, Bing, & Baidu",version='1.0')
 parser.add_argument('-u','--url',metavar="example.com",help="URL input",required=True,type=str)
@@ -151,10 +154,10 @@ def grabDomain(result):
         domainList.append(finalUrl)
 
 def saveResult(file):
-    f = open(file, 'w')
+    f = open(file,'w')
     print "\n[*]Removing duplicate domain . . "
     for p in set(domainList):
-        f.write(p + "\n")
+        f.write(p+"\n")
     f.close()
     print "\n[*] Saved to %s" % (file)
 
@@ -162,7 +165,6 @@ def google():
     print "[*] Get subdomain from Google . . "
     countGoogle = 0
     while True:
-        try:
             print '=> Result Page %s' %(countGoogle)
             getGoogle = BeautifulSoup(url('https://www.google.com/search?hl=en&q=site:%s&start=%s&sa=N' %(target,countGoogle)))
             finish = getGoogle.find_all('p', {"style": "padding-top:.33em"})
@@ -173,13 +175,11 @@ def google():
                     finalGoogle = str(link.find('a').attrs['href'])
                     grabDomain(finalGoogle)
             countGoogle += 10
-        except:
-            break
 
 def bing():
     print "[*] Get subdomain from Bing . . "
     countBing = 1
-    while (countBing <= 501):
+    while (countBing <= 701):
         try:
             print '=> Result Page %s' % (countBing)
             getBing = BeautifulSoup(url('http://www.bing.com/search?q=%s&first=%s&FORM=PERE' % (target,countBing)))
@@ -196,15 +196,13 @@ def bing():
 def baidu():
     print "[*] Get subdomain from Baidu . . "
     countBaidu = 0
-    while True:
+    while (countBaidu <= 700):
         try:
             print '=> Result Page %s' % (countBaidu)
             getBaidu = BeautifulSoup(url('http://www.baidu.com/s?wd=site:%s&pn=%s' % (target, countBaidu)))
             nFound = getBaidu.find_all('div', {'clapadding-top:.33emss': 'nors'})
             if len(nFound) == 1:
                 print "[*] Baidu => Subdomain Not Found"
-                break
-            elif countBaidu > 0 and str(getBaidu.find('i',{'class' : 'c-icon c-icon-bear-p'}).find_next('span').text) == "1":
                 break
             else:
                 for link in getBaidu.find_all('a',{"class" : "c-showurl"}):
@@ -232,7 +230,7 @@ def main():
     if args.output:
         saveResult(args.output)
     print "\n[*] Scanning complete!"
-    print "[*] Total subdomain found : %s" % (len(domainList))
+    print "[*] Total subdomain found : %s" % (len(set(domainList)))
 
 if __name__ == '__main__':
     main()
